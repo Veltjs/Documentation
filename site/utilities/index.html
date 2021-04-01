@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Corman">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Utilities - Velt Guide</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Velt Guide</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../basics/" class="nav-link">The Basics</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Utilities</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../docs/" class="nav-link">Docs</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../basics/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../docs/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#utilities" class="nav-link">Utilities</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#creating-custom-mobs" class="nav-link">Creating Custom Mobs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#creating-custom-items" class="nav-link">Creating Custom Items</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="utilities">Utilities</h2>
+<p>Some utilities which aren't necessarily as essential as the core parts of <code>velt</code>, or some of the more useful parts of <code>velt/helpers</code>, but can definitely still be very useful depending on what you're using them for.</p>
+<h2 id="creating-custom-mobs">Creating Custom Mobs</h2>
+<p>Firstly, a clarification. Velt does not allow you to create entirely new mobs with new sound effects and textures, but it does allow you to remix existing mobs to what you want, like a zombie with 50 health and runs twice as fast.</p>
+<p>Firstly, let's take a look at the following example:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">const</span> <span class="p">{</span> <span class="nx">server</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;velt&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">equip</span><span class="p">,</span> <span class="nx">effect</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;velt/helpers&#39;</span><span class="p">);</span>
+
+<span class="c1">//Assume loc is already defined, and spawn a zombie with some armor and speed.</span>
+<span class="kr">const</span> <span class="nx">zombie</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">summon</span><span class="p">(</span><span class="s1">&#39;zombie&#39;</span><span class="p">,</span> <span class="nx">loc</span><span class="p">);</span>
+<span class="nx">equip</span><span class="p">(</span><span class="nx">zombie</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">helmet</span><span class="o">:</span> <span class="s1">&#39;leather helmet&#39;</span><span class="p">,</span>
+    <span class="nx">chestplate</span><span class="o">:</span> <span class="s1">&#39;chainmail chestplate&#39;</span><span class="p">,</span>
+    <span class="nx">leggings</span><span class="o">:</span> <span class="s1">&#39;leather leggings&#39;</span><span class="p">,</span>
+    <span class="nx">boots</span><span class="o">:</span> <span class="s1">&#39;leather boots&#39;</span>
+<span class="p">});</span>
+<span class="nx">effect</span><span class="p">(</span><span class="nx">zombie</span><span class="p">,</span> <span class="s1">&#39;speed&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">amplifier</span>: <span class="kt">1</span><span class="p">,</span> <span class="nx">duration</span>: <span class="kt">10000</span> <span class="p">});</span>
+</code></pre></div>
+<p>However, that may be inconvenient and somewhat ugly, especially if you want to reuse it.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">const</span> <span class="nx">summonCustom</span> <span class="o">=</span> <span class="nx">loc</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">zombie</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">summon</span><span class="p">(</span><span class="s1">&#39;zombie&#39;</span><span class="p">,</span> <span class="nx">loc</span><span class="p">);</span>
+    <span class="nx">equip</span><span class="p">(</span><span class="nx">zombie</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">helmet</span><span class="o">:</span> <span class="s1">&#39;leather helmet&#39;</span><span class="p">,</span>
+        <span class="nx">chestplate</span><span class="o">:</span> <span class="s1">&#39;chainmail chestplate&#39;</span><span class="p">,</span>
+        <span class="nx">leggings</span><span class="o">:</span> <span class="s1">&#39;leather leggings&#39;</span><span class="p">,</span>
+        <span class="nx">boots</span><span class="o">:</span> <span class="s1">&#39;leather boots&#39;</span>
+    <span class="p">});</span>
+    <span class="nx">effect</span><span class="p">(</span><span class="nx">zombie</span><span class="p">,</span> <span class="s1">&#39;speed&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">amplifier</span>: <span class="kt">1</span><span class="p">,</span> <span class="nx">duration</span>: <span class="kt">10000</span> <span class="p">});</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>CustomMob offers a much nicer alternative.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">const</span> <span class="nx">zombie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomMob</span><span class="p">({</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;zombie&#39;</span><span class="p">,</span>
+    <span class="nx">equipment</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">helmet</span><span class="o">:</span> <span class="s1">&#39;leather helmet&#39;</span><span class="p">,</span>
+        <span class="nx">chestplate</span><span class="o">:</span> <span class="s1">&#39;chainmail chestplate&#39;</span><span class="p">,</span>
+        <span class="nx">leggings</span><span class="o">:</span> <span class="s1">&#39;leather leggings&#39;</span><span class="p">,</span>
+        <span class="nx">boots</span><span class="o">:</span> <span class="s1">&#39;leather boots&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">effects</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;speed&#39;</span><span class="p">,</span> <span class="nx">amplifier</span>: <span class="kt">1</span><span class="p">,</span> <span class="nx">duration</span>: <span class="kt">10000</span> <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">});</span>
+
+<span class="nx">zombie</span><span class="p">.</span><span class="nx">summon</span><span class="p">(</span><span class="nx">loc</span><span class="p">);</span>
+</code></pre></div>
+<p>When creating a CustomMob, you can also add custom mechanics. For example, if you wanted to make a zombie which shoots a fireball every second, CustomMob has support for that with its cycle option.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">const</span> <span class="nx">zombie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomMob</span><span class="p">({</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;zombie&#39;</span><span class="p">,</span>
+    <span class="nx">cycle() {</span>
+        <span class="nx">server</span><span class="p">.</span><span class="nx">schedule</span><span class="p">({</span> <span class="nx">seconds</span>: <span class="kt">1</span> <span class="p">},</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">shoot</span><span class="p">(</span><span class="s1">&#39;fireball&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">zombie</span><span class="p">.</span><span class="nx">summon</span><span class="p">(</span><span class="nx">loc</span><span class="p">);</span>
+</code></pre></div>
+<p>In short, Velt's CustomMob utility allows for adding custom mechanics to mobs much easier.</p>
+<h2 id="creating-custom-items">Creating Custom Items</h2>
+<p>Firstly, just to clarify, the custom items you can make in Velt aren't new items with new textures and sounds, but just adding in new features to existing items with specific names and properties.
+To start, what if you wanted to implement a stick with a special name that lets you shoot a fireball when you right click it? Velt custom items would be the way to go.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">const</span> <span class="p">{</span> <span class="nx">c</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;velt&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">Item</span><span class="p">,</span> <span class="nx">shoot</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;velt/helpers&#39;</span><span class="p">);</span>
+
+<span class="k">new</span> <span class="nx">Item</span><span class="p">({</span>
+    <span class="nx">name</span>: <span class="kt">c</span><span class="sb">`Fireball Shooter`</span><span class="p">,</span>
+    <span class="nx">interact</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">setCancelled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="kr">const</span> <span class="nx">player</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">getPlayer</span><span class="p">();</span>
+        <span class="nx">shoot</span><span class="p">(</span><span class="nx">player</span><span class="p">,</span> <span class="s1">&#39;fireball&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>You can also make it so you can be given a custom item with Item.give</p>
+<div class="highlight"><pre><span></span><code><span class="kr">const</span> <span class="nx">snowballShooter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Item</span><span class="p">({</span>
+    <span class="nx">name</span>: <span class="kt">c</span><span class="sb">`Snowball Shooter`</span><span class="p">,</span>
+    <span class="nx">interact</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">setCancelled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="kr">const</span> <span class="nx">player</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">getPlayer</span><span class="p">();</span>
+        <span class="nx">shoot</span><span class="p">(</span><span class="nx">player</span><span class="p">,</span> <span class="s1">&#39;snowball&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">commands</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;shooter&#39;</span><span class="p">,</span> <span class="nx">sender</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">snowballShooter</span><span class="p">.</span><span class="nx">give</span><span class="p">(</span><span class="nx">sender</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>The Item utility for creating custom items isn't finalized, but it's quite useful.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

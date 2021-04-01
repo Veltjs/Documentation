@@ -1,0 +1,11 @@
+site_name: Velt Guide
+site_description: A guide for Velt, a plugin that lets you use Javascript and Node to code with Spigot.
+site_author: Corman
+nav:
+    - Getting Started: index.md
+    - The Basics: basics.md
+    - Utilities: utilities.md
+    - Docs: docs.md
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
